@@ -106,20 +106,19 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'adonis_shop',
+        'NAME': 'dahs0ls6vunf6o',
         'ATOMIC_REQUESTS': True,
-        'HOST':'127.0.0.1',
-        'USER':'adonis',
-        'PASSWORD':'programmeur',
-        'PORT':'5433'
+        'HOST':'ec2-23-21-169-238.compute-1.amazonaws.com',
+        'USER':'zxdqatjjzbyjfn',
+        'PASSWORD':'1359ebdca4e372632891d440999ae97d1053c4c8be59e369f4fe632db11840ce',
+        'PORT':'5432'
     }
-}"""
+}
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+
 
 
 AUTHENTICATION_BACKENDS = [
