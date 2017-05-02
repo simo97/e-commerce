@@ -25,6 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = '=%zyli^nvj8a=eenalw+23*i@fbs5ct8&=^84^5#mk_-mg-2b%'
 import os
+import dj_database_url
+
+
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '=%zyli^nvj8a=eenalw+23*i@fbs5ct8&=^84^5#mk_-mg-2b%')
 
 
@@ -103,7 +106,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'adonis_shop',
@@ -113,7 +116,11 @@ DATABASES = {
         'PASSWORD':'programmeur',
         'PORT':'5433'
     }
-}
+}"""
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
 
 AUTHENTICATION_BACKENDS = [
     'oscar.apps.customer.auth_backends.EmailBackend',
@@ -156,8 +163,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
 MEDIA_URL = '/static/media/'
+
+# The absolute path to the directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# The URL to use when referring to static files (where they will be served from)
+STATIC_URL = '/static/'
 
 #search engine with haystack
 HAYSTACK_CONNECTIONS = {
@@ -165,3 +177,7 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
     },
 }
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
